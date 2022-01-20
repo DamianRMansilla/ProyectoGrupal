@@ -1,12 +1,14 @@
 from json import load
+
+#Para qué el json? load?
+
 from django.template.context import Context
-from django.template import Template
+from django.template import Template, loader
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader
 
-def inicio(req):
-    return render(req, "Inicio.html")
+def inicio(request):
+    return render(request, "Inicio.html")
 
 # def inicioConTemplate(req):
 

@@ -4,6 +4,17 @@
 
 
 {% block contenidoQueCambia %}
-    <p>Alumnos</p>
+<p>Listado de Directivos</p>
 
+<ul> 
+
+    {% for alumno in lista %}
+        <li>
+        {{alumno.nombre}} {{alumno.apellido}} - 
+        Fecha de nacimiento: {{alumno.año_nacimiento}} - 
+        Teléfono de Contacto:{{alumno.telefono_contacto}}
+        </li>
+    {% endfor %}
+
+</ul>
 {% endblock contenidoQueCambia %}

@@ -4,6 +4,16 @@
 
 
 {% block contenidoQueCambia %}
-    <p>Docentes</p>
+<p>Listado de Docentes</p>
 
+<ul> 
+
+    {% for docente in lista %}
+        <li>
+        {{docente.nombre}} {{docente.apellido}} -   
+        Teléfono de Contacto:{{docente.telefono_contacto}}
+        </li>
+    {% endfor %}
+
+</ul>
 {% endblock contenidoQueCambia %}

@@ -1,21 +1,25 @@
+from http.client import HTTPResponse
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from AppCoder.models import Curso, Alumno, Docentes
+from AppCoder.models import Curso, Alumno, Docentes, Directivos
 
-# Create your views here.
+def alumnos(request):
+    listaDeAlumnos = Alumno.objects.all()
+    return render(request, "Alumnos.html", {"lista": listaDeAlumnos})
+ 
+def docentes(request):
+    listaDeDocentes = Docentes.objects.all()
+    return render(request, "Docentes.html", {"lista": listaDeDocentes})
 
-def alumnos(req):
-    return render(req, "Alumnos.html")
-
-def docentes(req):
-    return render(req, "Docentes.html")
-
-def cursos(req):
-
+def cursos(request):
     listaDeCursos = Curso.objects.all()
+    return render(request, "Cursos.html", {"lista": listaDeCursos})
 
-    return render(req, "Cursos.html", {"listaDeCursos": listaDeCursos})
+def directivos(request):
+    listaDeDirectivos = Directivos.objects.all()
+    return render(request, "Directivos.html", {"lista": listaDeDirectivos})
+
 
 def crea_curso(req):
 
@@ -29,10 +33,12 @@ def crea_curso(req):
     return render(req, "CursoNuevo.html")
 
 
-# def crea_curso(self):
-    
-#     curso = Curso(grado = "5", division = "A")
 
+    
+    
+
+# def crea_curso(self):
+#     curso = Curso(grado = "5", division = "A")
 #     curso.save()
 
 #     return HttpResponse(f'Se creo el curso {curso.grado}{curso.division}')

@@ -1,0 +1,24 @@
+{% extends 'Padre.html' %}
+
+{% load static %}
+
+
+{% block contenidoQueCambia %}
+
+<p>Listado de Directivos</p>
+
+<ul> 
+
+    {% for directivo in lista %}
+        <li>{{directivo.nombre}} {{directivo.apellido}}</li>
+    {% endfor %}
+
+</ul>
+    
+  
+        
+
+
+
+
+{% endblock contenidoQueCambia %}

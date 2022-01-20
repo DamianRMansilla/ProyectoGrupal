@@ -7,8 +7,10 @@
 <p>Listado de Cursos</p>
 <ul>
     
-    {% for curso in listaDeCursos %}
-        <li>Grado: {{curso.grado}} - Division: {{curso.division}}</li>
+    {% for curso in lista %}
+        <li>
+        Grado: {{curso.grado}} - Division: {{curso.division}}
+        </li>
         
     {% endfor %}
         
