@@ -2,24 +2,28 @@ from http.client import HTTPResponse
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from AppCoder.models import Curso, Alumno, Docentes, Directivos
+from AppCoder.models import Curso, Alumno, Docente, Directivo
 from AppCoder.forms import formCurso
+
+def inicio(request):
+    return render(request, "AppCoder/Inicio.html")
+
 
 def alumnos(request):
     listaDeAlumnos = Alumno.objects.all()
-    return render(request, "Alumnos.html", {"lista": listaDeAlumnos})
+    return render(request, "AppCoder/Alumnos.html", {"lista": listaDeAlumnos})
  
 def docentes(request):
-    listaDeDocentes = Docentes.objects.all()
-    return render(request, "Docentes.html", {"lista": listaDeDocentes})
+    listaDeDocentes = Docente.objects.all()
+    return render(request, "AppCoder/Docentes.html", {"lista": listaDeDocentes})
 
 def cursos(request):
     listaDeCursos = Curso.objects.all()
-    return render(request, "Cursos.html", {"lista": listaDeCursos})
+    return render(request, "AppCoder/Cursos.html", {"lista": listaDeCursos})
 
 def directivos(request):
-    listaDeDirectivos = Directivos.objects.all()
-    return render(request, "Directivos.html", {"lista": listaDeDirectivos})
+    listaDeDirectivos = Directivo.objects.all()
+    return render(request, "AppCoder/Directivos.html", {"lista": listaDeDirectivos})
 
 
 def crea_curso(req):
@@ -31,6 +35,7 @@ def crea_curso(req):
         if (mi_formulario.is_valid()):
 
             curso = Curso(grado = req.POST["grado"], division = req.POST["division"])
+            #return render(req, "AppCoder/CursoNuevo.html")
 
             curso.save()
 
