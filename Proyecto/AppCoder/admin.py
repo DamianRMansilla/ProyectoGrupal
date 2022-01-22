@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from AppCoder.models import Alumno, Curso, Docentes, Directivos
+from AppCoder.models import Alumno, Curso, Docente, Directivo
 
 # Register your models here.
 
 admin.site.register(Alumno)
-admin.site.register(Docentes)
+admin.site.register(Docente)
 admin.site.register(Curso)
-admin.site.register(Directivos)
+admin.site.register(Directivo)
