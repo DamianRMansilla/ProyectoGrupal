@@ -1,22 +1,25 @@
-<body>
+{% extends 'Padre.html' %}
+
+{% load static %}
+
+
+{% block contenidoQueCambia %}
     
-    <p>nuevo curso</p>
+<h1>Creacion de cursos</h1>
 
     
-    {% if form.errors %}
-        <p>Los datos ingresados son incorrectos</p>
-    {% endif %}
+{% if form.errors %}
+    <p>Los datos ingresados son incorrectos</p>
+{% endif %}
         
 
-    <form action="/AppCoder/creaCurso" method="POST">{% csrf_token %}
+<form class="formCurso" action="/AppCoder/creaCurso" method="POST">{% csrf_token %}
 
-        <!-- <label>Grado:</label><input type="number" name="grado">
-        <label>Division:</label><input type="text" name="division"> -->
+    {{form.as_table}}
 
-        {{form.as_table}}
-
-        <input type="submit" value="Crear">
+    <input type="submit" value="Crear">
 
 
-    </form>
-</body>
+</form>
+
+{% endblock contenidoQueCambia %}

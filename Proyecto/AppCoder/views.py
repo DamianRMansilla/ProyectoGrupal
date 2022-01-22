@@ -15,7 +15,7 @@ def alumnos(request):
  
 def docentes(request):
     listaDeDocentes = Docente.objects.all()
-    return render(request, "AppCoder/Docentes.html", {"lista": listaDeDocentes})
+    return render(request, "AppCoder/Docente.html", {"lista": listaDeDocentes})
 
 def cursos(request):
     listaDeCursos = Curso.objects.all()
