@@ -1,11 +1,22 @@
-<p>nuevo curso</p>
+<body>
+    
+    <p>nuevo curso</p>
 
-<form action="/AppCoder/creaCurso" method="POST">{% csrf_token %}
+    
+    {% if form.errors %}
+        <p>Los datos ingresados son incorrectos</p>
+    {% endif %}
+        
 
-    <label>Grado:</label><input type="number" name="grado">
-    <label>Division:</label><input type="text" name="division">
+    <form action="/AppCoder/creaCurso" method="POST">{% csrf_token %}
 
-    <input type="submit" value="Crear">
+        <!-- <label>Grado:</label><input type="number" name="grado">
+        <label>Division:</label><input type="text" name="division"> -->
+
+        {{form.as_table}}
+
+        <input type="submit" value="Crear">
 
 
-</form>
+    </form>
+</body>
