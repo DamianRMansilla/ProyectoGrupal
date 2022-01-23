@@ -1,0 +1,27 @@
+{% extends 'Padre.html' %}
+
+{% load static %}
+
+
+{% block contenidoQueCambia %}
+
+    {% if alumnos %}
+
+    <p>Estamos buscando los datos del alumno dni nro°: {{dni}} </p>
+
+    <ul>
+    {% for alumno in alumnos %}
+        <li>{{alumno.nombre}}</li>
+        <li>{{alumno.apellido}}</li>
+        <li>{{alumno.dni}}</li>
+    {% endfor %}
+    </ul>
+
+    {% else %}
+    <p>No hay datos con esa descripción.</p>
+
+    {% endif %}
+
+    <p style="color: red;"> {{respuesta}} </p>
+
+{% endblock contenidoQueCambia %}

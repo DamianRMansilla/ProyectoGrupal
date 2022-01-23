@@ -24,7 +24,6 @@ def directivos(request):
     listaDeDirectivos = Directivo.objects.all()
     return render(request, "AppCoder/Directivos.html", {"lista": listaDeDirectivos})
 
-
 def crea_curso(req):
 
     if (req.method == "POST"):
@@ -45,25 +44,6 @@ def crea_curso(req):
         mi_formulario = formCurso()
 
     return render(req, "CursoNuevo.html", {"form": mi_formulario})
-
-
-def busquedaCurso(req):
-    return render(req, "busquedaCurso.html")
-    
-def buscar(req):
-
-    #if(req.method == "GET"):
-        if(req.GET["division"]):
-            division = req.GET["division"]
-            grados = Curso.objects.filter(division__icontains=division)
-
-            return render(req, "ResultadoBusqueda.html", {"grados": grados, "division": division})
-        
-            #return HttpResponse(f'Estamos buscnado los cursos de {req.GET["curso"]}°')
-
-        else:
-            respuesta = "No enviaste datos"
-            return HttpResponse(respuesta)
 
 def crea_alumno(request):
 
@@ -121,3 +101,37 @@ def crea_docente(request):
         mi_formulario = formDocente()
 
     return render(request, "AppCoder/DocenteNuevo.html", {"form": mi_formulario})
+
+def busqueda_alumno(request):
+    return render(request, "AppCoder/BusquedaAlumno.html")
+    
+def buscar_alumno(request):
+
+    if request.GET["dni"]:
+
+        dni = request.GET["dni"]
+        alumnos = Alumno.objects.filter(dni__icontains=dni)
+
+        return render(request, "AppCoder/ResultadoBusquedaAlumno.html", {"alumnos": alumnos, 'dni':dni})
+    else:
+        respuesta = "No enviaste datos"
+
+    return render(request, 'AppCoder/Inicio.html', {'respuesta': respuesta})
+
+def busqueda_curso(req):
+    return render(req, "AppCoder/BusquedaCurso.html")
+    
+def buscar_curso(req):
+
+    #if(req.method == "GET"):
+        if(req.GET["division"]):
+            division = req.GET["division"]
+            grados = Curso.objects.filter(division__icontains=division)
+
+            return render(req, "ResultadoBusquedaCurso.html", {"grados": grados, "division": division})
+        
+            #return HttpResponse(f'Estamos buscnado los cursos de {req.GET["curso"]}°')
+
+        else:
+            respuesta = "No enviaste datos"
+        return HttpResponse(respuesta)
