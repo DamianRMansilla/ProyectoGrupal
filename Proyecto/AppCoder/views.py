@@ -3,11 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from AppCoder.models import Curso, Alumno, Docente, Directivo
-from AppCoder.forms import formCurso
+from AppCoder.forms import formDocente, formDirectivo, formCurso, formAlumno
 
 def inicio(request):
     return render(request, "AppCoder/Inicio.html")
-
 
 def alumnos(request):
     listaDeAlumnos = Alumno.objects.all()
@@ -66,8 +65,59 @@ def buscar(req):
             respuesta = "No enviaste datos"
             return HttpResponse(respuesta)
 
-# def crea_curso(self):
-#     curso = Curso(grado = "5", division = "A")
-#     curso.save()
+def crea_alumno(request):
 
-#     return HttpResponse(f'Se creo el curso {curso.grado}{curso.division}')
+    if (request.method == "POST"):
+        mi_formulario = formAlumno(request.POST)
+
+        if (mi_formulario.is_valid()):
+            data = mi_formulario.cleaned_data
+            alumno = Alumno(nombre = data["nombre"], 
+                            apellido = data["apellido"],
+                            año_nacimiento = data["año_nacimiento"],
+                            telefono_contacto = data["telefono_contacto"],
+                            )
+            alumno.save()
+            return render(request, "AppCoder/Inicio.html")
+
+    else:
+        mi_formulario = formAlumno()
+
+    return render(request, "AppCoder/AlumnoNuevo.html", {"form": mi_formulario})
+
+def crea_directivo(request):
+
+    if (request.method == "POST"):
+        mi_formulario = formDirectivo(request.POST)
+
+        if (mi_formulario.is_valid()):
+            data = mi_formulario.cleaned_data
+            directivo  = Directivo(nombre = data["nombre"], 
+                            apellido = data["apellido"],
+                            )
+            directivo.save()
+            return render(request, "AppCoder/Inicio.html")
+            
+    else:
+        mi_formulario = formDirectivo()
+
+    return render(request, "AppCoder/DirectivoNuevo.html", {"form": mi_formulario})
+
+def crea_docente(request):
+
+    if (request.method == "POST"):
+        mi_formulario = formDocente(request.POST)
+
+        if (mi_formulario.is_valid()):
+            data = mi_formulario.cleaned_data
+            docente  = Docente(nombre = data["nombre"], 
+                               apellido = data["apellido"],
+                               telefono_contacto = data["telefono_contacto"]
+                               )
+            docente.save()
+            return render(request, "AppCoder/Inicio.html")
+            
+    else:
+        mi_formulario = formDocente()
+
+    return render(request, "AppCoder/DocenteNuevo.html", {"form": mi_formulario})
