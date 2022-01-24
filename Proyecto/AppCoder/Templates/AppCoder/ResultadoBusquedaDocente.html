@@ -4,17 +4,18 @@
 
 
 {% block contenidoQueCambia %}
-
-    {% if alumnos %}
-    <h2>Estamos buscando los datos del alumno dni nro°: {{dni}} </h2>
+    
+    {% if docentes %}
+    <h2>Resultado de la busqueda - Docentes dni: {{dni}}</h2>
     <ul>
-        {% for alumno in alumnos %}
-            <li>{{alumno.nombre}}</li>
-            <li>{{alumno.apellido}}</li>
-            <li>{{alumno.dni}}</li>
+        {% for docente in docentes %}
+            <li>{{docente.nombre}}
+                {{docente.apellido}}
+                {{docente.dni}}
+            </li>
         {% endfor %}
     </ul>
-
+    
     {% else %}
     <p>No hay datos con esa descripción.</p>
     {% endif %}

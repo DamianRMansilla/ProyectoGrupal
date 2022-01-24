@@ -12,6 +12,7 @@ class Alumno(models.Model):
 class Docente(models.Model):
     nombre = models.CharField("nombre", max_length=50)
     apellido = models.CharField("apellido", max_length=50)
+    dni = models.IntegerField(null=True)
     telefono_contacto = models.IntegerField()
 
     def __str__(self):
@@ -26,6 +27,7 @@ class Curso(models.Model):
 class Directivo(models.Model):
     nombre= models.CharField(max_length=30)
     apellido= models.CharField(max_length=30)
+    dni = models.IntegerField(null=True)
     
     def __str__(self):
         return f'{self.nombre}-{self.apellido} '

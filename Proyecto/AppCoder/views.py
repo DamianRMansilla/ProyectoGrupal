@@ -135,3 +135,33 @@ def buscar_curso(req):
         else:
             respuesta = "No enviaste datos"
         return HttpResponse(respuesta)
+
+def busqueda_directivo(request):
+    return render(request, "AppCoder/BusquedaDirectivo.html")
+
+def buscar_directivo(request):
+
+        if(request.GET["dni"]):
+            dni = request.GET["dni"]
+            directivos = Directivo.objects.filter(dni__icontains=dni)
+
+            return render(request, "ResultadoBusquedaDirectivo.html", {"directivos": directivos, "dni": dni})
+
+        else:
+            respuesta = "No enviaste datos"
+        return HttpResponse(respuesta)
+
+def busqueda_docente(request):
+    return render(request, "AppCoder/BusquedaDocente.html")
+
+def buscar_docente(request):
+
+        if(request.GET["dni"]):
+            dni = request.GET["dni"]
+            docentes = Docente.objects.filter(dni__icontains=dni)
+
+            return render(request, "ResultadoBusquedaDocente.html", {"docentes": docentes, "dni": dni})
+
+        else:
+            respuesta = "No enviaste datos"
+        return HttpResponse(respuesta)

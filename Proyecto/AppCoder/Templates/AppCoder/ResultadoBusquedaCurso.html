@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    <h2>Resultado de la busqueda de los cursos con división: {{division}}</h2>
+{% extends 'Padre.html' %}
+
+{% load static %}
+
+
+{% block contenidoQueCambia %}
     
     {% if grados %}
+    <h2>Resultado de la busqueda de los cursos con división: {{division}}</h2>
     <ul>
         {% for grado in grados %}
             <li>{{grado.grado}}{{grado.division}}</li>
-        {% endfor %}
-        
-        </ul>
+        {% endfor %} 
+    </ul>
+
+    {% else %}
+    <p>No hay datos con esa descripción.</p>
     {% endif %}
-        
-</body>
-</html>
+    
+    <p style="color: red;"> {{respuesta}} </p>
+    
+{% endblock contenidoQueCambia %}
