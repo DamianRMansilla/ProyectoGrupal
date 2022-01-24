@@ -37,13 +37,13 @@ def crea_curso(req):
 
             curso.save()
 
-            return render(req, "inicio.html")
+            return render(req, "AppCoder/inicio.html")
 
     else:
 
         mi_formulario = formCurso()
 
-    return render(req, "CursoNuevo.html", {"form": mi_formulario})
+    return render(req, "AppCoder/CursoNuevo.html", {"form": mi_formulario})
 
 def crea_alumno(request):
 
