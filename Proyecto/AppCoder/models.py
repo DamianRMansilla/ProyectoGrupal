@@ -6,7 +6,7 @@ class Curso(models.Model):
     division = models.CharField("division", max_length=1)
 
     def __str__(self):
-        return f'{self.grado}-{self.division}'
+        return f'Curso: {self.grado} - Division: {self.division}'
 
 class Alumno(models.Model):
     nombre = models.CharField("nombre", max_length=50)
@@ -25,7 +25,7 @@ class Docente(models.Model):
     telefono_contacto = models.IntegerField()
 
     def __str__(self):
-        return f'{self.nombre}-{self.apellido} '
+        return f'Nombre: {self.nombre} - Apellido: {self.apellido} - DNI: {self.dni}'
 
 
 class Directivo(models.Model):
@@ -34,4 +34,4 @@ class Directivo(models.Model):
     dni = models.IntegerField(null=True)
     
     def __str__(self):
-        return f'{self.nombre}-{self.apellido} '
+        return f'Nombre: {self.nombre} - Apellido: {self.apellido} - DNI: {self.dni}'

@@ -1,4 +1,4 @@
-{% extends 'Padre.html' %}
+{% extends 'AppCoder/Padre.html' %}
 
 {% load static %}
 
@@ -13,7 +13,7 @@
 {% endif %}
         
 
-<form class="formDirectivo" action="/AppCoder/creaDirectivo/" method="POST">{% csrf_token %}
+<form class="FormDirectivo" action="/AppCoder/creaDirectivo/" method="POST">{% csrf_token %}
 
     {{form.as_table}}
 

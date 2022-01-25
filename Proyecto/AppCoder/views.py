@@ -3,52 +3,52 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from AppCoder.models import Curso, Alumno, Docente, Directivo
-from AppCoder.forms import formDocente, formDirectivo, formCurso, formAlumno
+from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno
 
 def inicio(request):
     return render(request, "AppCoder/Inicio.html")
 
 def alumnos(request):
-    listaDeAlumnos = Alumno.objects.all()
-    return render(request, "AppCoder/Alumnos.html", {"lista": listaDeAlumnos})
+    lista_alumnos = Alumno.objects.all()
+    return render(request, "AppCoder/Alumnos.html", {"lista": lista_alumnos})
  
 def docentes(request):
-    listaDeDocentes = Docente.objects.all()
-    return render(request, "AppCoder/Docente.html", {"lista": listaDeDocentes})
+    lista_docentes = Docente.objects.all()
+    return render(request, "AppCoder/Docente.html", {"lista": lista_docentes})
 
 def cursos(request):
-    listaDeCursos = Curso.objects.all()
-    return render(request, "AppCoder/Cursos.html", {"lista": listaDeCursos})
+    lista_cursos = Curso.objects.all()
+    return render(request, "AppCoder/Cursos.html", {"lista": lista_cursos})
 
 def directivos(request):
-    listaDeDirectivos = Directivo.objects.all()
-    return render(request, "AppCoder/Directivos.html", {"lista": listaDeDirectivos})
+    lista_directivos = Directivo.objects.all()
+    return render(request, "AppCoder/Directivos.html", {"lista": lista_directivos})
 
-def crea_curso(req):
+def crea_curso(request):
 
-    if (req.method == "POST"):
+    if (request.method == "POST"):
 
-        mi_formulario = formCurso(req.POST)
+        mi_formulario = FormCurso(request.POST)
 
         if (mi_formulario.is_valid()):
 
-            curso = Curso(grado = req.POST["grado"], division = req.POST["division"])
+            curso = Curso(grado = request.POST["grado"], division = request.POST["division"])
             #return render(req, "AppCoder/CursoNuevo.html")
 
             curso.save()
 
-            return render(req, "AppCoder/inicio.html")
+            return render(request, "AppCoder/inicio.html")
 
     else:
 
-        mi_formulario = formCurso()
+        mi_formulario = FormCurso()
 
-    return render(req, "AppCoder/CursoNuevo.html", {"form": mi_formulario})
+    return render(request, "AppCoder/CursoNuevo.html", {"form": mi_formulario})
 
 def crea_alumno(request):
 
     if (request.method == "POST"):
-        mi_formulario = formAlumno(request.POST)
+        mi_formulario = FormAlumno(request.POST)
 
         if (mi_formulario.is_valid()):
             data = mi_formulario.cleaned_data
@@ -62,14 +62,14 @@ def crea_alumno(request):
             return render(request, "AppCoder/Inicio.html")
 
     else:
-        mi_formulario = formAlumno()
+        mi_formulario = FormAlumno()
 
     return render(request, "AppCoder/AlumnoNuevo.html", {"form": mi_formulario})
 
 def crea_directivo(request):
 
     if (request.method == "POST"):
-        mi_formulario = formDirectivo(request.POST)
+        mi_formulario = FormDirectivo(request.POST)
 
         if (mi_formulario.is_valid()):
             data = mi_formulario.cleaned_data
@@ -81,14 +81,14 @@ def crea_directivo(request):
             return render(request, "AppCoder/Inicio.html")
             
     else:
-        mi_formulario = formDirectivo()
+        mi_formulario = FormDirectivo()
 
     return render(request, "AppCoder/DirectivoNuevo.html", {"form": mi_formulario})
 
 def crea_docente(request):
 
     if (request.method == "POST"):
-        mi_formulario = formDocente(request.POST)
+        mi_formulario = FormDocente(request.POST)
 
         if (mi_formulario.is_valid()):
             data = mi_formulario.cleaned_data
@@ -101,7 +101,7 @@ def crea_docente(request):
             return render(request, "AppCoder/Inicio.html")
             
     else:
-        mi_formulario = formDocente()
+        mi_formulario = FormDocente()
 
     return render(request, "AppCoder/DocenteNuevo.html", {"form": mi_formulario})
 
@@ -131,7 +131,7 @@ def buscar_curso(req):
             division = req.GET["division"]
             grados = Curso.objects.filter(division__icontains=division)
 
-            return render(req, "ResultadoBusquedaCurso.html", {"grados": grados, "division": division})
+            return render(req, "AppCoder/ResultadoBusquedaCurso.html", {"grados": grados, "division": division})
         
             #return HttpResponse(f'Estamos buscnado los cursos de {req.GET["curso"]}°')
 
@@ -148,7 +148,7 @@ def buscar_directivo(request):
             dni = request.GET["dni"]
             directivos = Directivo.objects.filter(dni__icontains=dni)
 
-            return render(request, "ResultadoBusquedaDirectivo.html", {"directivos": directivos, "dni": dni})
+            return render(request, "AppCoder/ResultadoBusquedaDirectivo.html", {"directivos": directivos, "dni": dni})
 
         else:
             respuesta = "No enviaste datos"
@@ -163,7 +163,7 @@ def buscar_docente(request):
             dni = request.GET["dni"]
             docentes = Docente.objects.filter(dni__icontains=dni)
 
-            return render(request, "ResultadoBusquedaDocente.html", {"docentes": docentes, "dni": dni})
+            return render(request, "AppCoder/ResultadoBusquedaDocente.html", {"docentes": docentes, "dni": dni})
 
         else:
             respuesta = "No enviaste datos"

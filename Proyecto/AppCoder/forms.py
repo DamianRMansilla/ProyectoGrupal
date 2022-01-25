@@ -1,22 +1,22 @@
 from django import forms
-class formCurso(forms.Form):
+class FormCurso(forms.Form):
     grado = forms.IntegerField()
     division = forms.CharField()
 
-class formAlumno(forms.Form):
+class FormAlumno(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
     dni = forms.IntegerField()
     año_nacimiento = forms.DateField()
     telefono_contacto = forms.IntegerField()
 
-class formDocente(forms.Form):
+class FormDocente(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
     dni = forms.IntegerField()
     telefono_contacto = forms.IntegerField()   
      
-class formDirectivo(forms.Form):
+class FormDirectivo(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
     dni = forms.IntegerField()
