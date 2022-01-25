@@ -53,7 +53,8 @@ def crea_alumno(request):
         if (mi_formulario.is_valid()):
             data = mi_formulario.cleaned_data
             alumno = Alumno(nombre = data["nombre"], 
-                            apellido = data["apellido"],
+                            apellido = data["apellido"], 
+                            dni = data["dni"],
                             año_nacimiento = data["año_nacimiento"],
                             telefono_contacto = data["telefono_contacto"],
                             )
@@ -73,7 +74,8 @@ def crea_directivo(request):
         if (mi_formulario.is_valid()):
             data = mi_formulario.cleaned_data
             directivo  = Directivo(nombre = data["nombre"], 
-                            apellido = data["apellido"],
+                            apellido = data["apellido"], 
+                            dni = data["dni"]
                             )
             directivo.save()
             return render(request, "AppCoder/Inicio.html")
@@ -91,7 +93,8 @@ def crea_docente(request):
         if (mi_formulario.is_valid()):
             data = mi_formulario.cleaned_data
             docente  = Docente(nombre = data["nombre"], 
-                               apellido = data["apellido"],
+                               apellido = data["apellido"], 
+                               dni = data["dni"],
                                telefono_contacto = data["telefono_contacto"]
                                )
             docente.save()

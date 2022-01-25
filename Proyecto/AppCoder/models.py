@@ -1,4 +1,13 @@
 from django.db import models
+
+
+class Curso(models.Model):
+    grado = models.IntegerField()
+    division = models.CharField("division", max_length=1)
+
+    def __str__(self):
+        return f'{self.grado}-{self.division}'
+
 class Alumno(models.Model):
     nombre = models.CharField("nombre", max_length=50)
     apellido = models.CharField("apellido", max_length=50)
@@ -7,7 +16,7 @@ class Alumno(models.Model):
     telefono_contacto = models.IntegerField(null=True)
 
     def __str__(self):
-        return f'Nombre: {self.nombre} - Apellido: {self.apellido} '
+        return f'Nombre: {self.nombre} - Apellido: {self.apellido} - DNI: {self.dni}'
 
 class Docente(models.Model):
     nombre = models.CharField("nombre", max_length=50)
@@ -17,12 +26,7 @@ class Docente(models.Model):
 
     def __str__(self):
         return f'{self.nombre}-{self.apellido} '
-class Curso(models.Model):
-    grado = models.IntegerField()
-    division = models.CharField("division", max_length=1)
 
-    def __str__(self):
-        return f'{self.grado}-{self.division}'
 
 class Directivo(models.Model):
     nombre= models.CharField(max_length=30)

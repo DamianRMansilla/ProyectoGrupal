@@ -11,6 +11,7 @@
     {% for docente in lista %}
         <li>
         {{docente.nombre}} {{docente.apellido}} -   
+        DNI: {{docente.dni}} - 
         Teléfono de Contacto:{{docente.telefono_contacto}}
         </li>
     {% endfor %}

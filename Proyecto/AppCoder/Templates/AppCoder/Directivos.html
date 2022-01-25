@@ -10,7 +10,9 @@
 <ul> 
 
     {% for directivo in lista %}
-        <li>{{directivo.nombre}} {{directivo.apellido}}</li>
+        <li>
+            {{directivo.nombre}} {{directivo.apellido}} - 
+            DNI: {{directivo.dni}}</li>
     {% endfor %}
 
 </ul>

@@ -6,14 +6,18 @@ class formCurso(forms.Form):
 class formAlumno(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
+    dni = forms.IntegerField()
     año_nacimiento = forms.DateField()
     telefono_contacto = forms.IntegerField()
-    
-class formDirectivo(forms.Form):
-    nombre = forms.CharField()
-    apellido = forms.CharField()
-    
+
 class formDocente(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
-    telefono_contacto = forms.IntegerField()
+    dni = forms.IntegerField()
+    telefono_contacto = forms.IntegerField()   
+     
+class formDirectivo(forms.Form):
+    nombre = forms.CharField()
+    apellido = forms.CharField()
+    dni = forms.IntegerField()
+    
