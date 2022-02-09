@@ -1,0 +1,27 @@
+{% extends 'AppCoder/Padre.html' %}
+
+{% load static %}
+
+
+{% block contenidoQueCambia %}
+    
+<h1>Creacion de cursos</h1>
+
+    
+{% if form.errors %}
+    <p>Los datos ingresados son incorrectos</p>
+{% endif %}
+        
+
+<form action="{% url 'New' %}" method="POST">{% csrf_token %}
+
+    <table>
+        {{form.as_table}}
+    </table>
+
+    <input type="submit" value="Crear">
+
+
+</form>
+
+{% endblock contenidoQueCambia %}

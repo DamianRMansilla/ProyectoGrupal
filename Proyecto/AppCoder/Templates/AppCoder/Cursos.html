@@ -9,8 +9,11 @@
     
     {% for curso in lista %}
         <li>
-        Grado: {{curso.grado}} - Division: {{curso.division}}
+            Grado: {{curso.grado}} - Division: {{curso.division}}
         </li>
+        <button>
+            <a href="{% url 'eliminaCurso' curso.id %}"> Eliminar</a>
+        </button>
         
     {% endfor %}
         

@@ -15,6 +15,9 @@
         Fecha de nacimiento: {{alumno.año_nacimiento}} - 
         Teléfono de Contacto:{{alumno.telefono_contacto}}
         </li>
+        <button>
+            <a href="{% url 'eliminaAlumno' alumno.id %}"> Eliminar</a>
+        </button>
     {% endfor %}
 
 </ul>

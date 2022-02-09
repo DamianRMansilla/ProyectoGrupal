@@ -10,10 +10,14 @@
 
     {% for docente in lista %}
         <li>
-        {{docente.nombre}} {{docente.apellido}} -   
-        DNI: {{docente.dni}} - 
-        Teléfono de Contacto:{{docente.telefono_contacto}}
+            {{docente.nombre}} {{docente.apellido}} -   
+            DNI: {{docente.dni}} - 
+            Teléfono de Contacto:{{docente.telefono_contacto}}
         </li>
+        <button>
+            <a href="{% url 'eliminaDocente' docente.id %}"> Eliminar</a>
+            <a href="{% url 'editarDocente' docente.nombre %}"> Editar</a>
+        </button>
     {% endfor %}
 
 </ul>

@@ -1,6 +1,9 @@
 from http.client import HTTPResponse
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView, CreateView, DeleteView
 
 from AppCoder.models import Curso, Alumno, Docente, Directivo
 from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno
@@ -45,6 +48,15 @@ def crea_curso(request):
 
     return render(request, "AppCoder/CursoNuevo.html", {"form": mi_formulario})
 
+def elimina_curso(request, id_curso):
+    curso = Curso.objects.get(id=id_curso)
+
+    curso.delete()
+
+    lista_cursos = Curso.objects.all()
+
+    return render(request, "AppCoder/Cursos.html", {"lista": lista_cursos})
+
 def crea_alumno(request):
 
     if (request.method == "POST"):
@@ -66,6 +78,15 @@ def crea_alumno(request):
 
     return render(request, "AppCoder/AlumnoNuevo.html", {"form": mi_formulario})
 
+def elimina_alumno(request, id_alumno):
+    alumno = Alumno.objects.get(id=id_alumno)
+
+    alumno.delete()
+
+    lista_alumnos = Alumno.objects.all()
+
+    return render(request, "AppCoder/Alumnos.html", {"lista": lista_alumnos})
+
 def crea_directivo(request):
 
     if (request.method == "POST"):
@@ -84,6 +105,15 @@ def crea_directivo(request):
         mi_formulario = FormDirectivo()
 
     return render(request, "AppCoder/DirectivoNuevo.html", {"form": mi_formulario})
+
+def elimina_directivo(request, id_directivo):
+    directivo = Directivo.objects.get(id=id_directivo)
+
+    directivo.delete()
+
+    lista_directivos = Directivo.objects.all()
+
+    return render(request, "AppCoder/Directivos.html", {"lista": lista_directivos})
 
 def crea_docente(request):
 
@@ -104,6 +134,40 @@ def crea_docente(request):
         mi_formulario = FormDocente()
 
     return render(request, "AppCoder/DocenteNuevo.html", {"form": mi_formulario})
+
+def elimina_docente(request, id_docente):
+    docente = Docente.objects.get(id=id_docente)
+
+    docente.delete()
+
+    lista_docentes = Docente.objects.all()
+
+    return render(request, "AppCoder/Docente.html", {"lista": lista_docentes})
+
+def editar_docente(request, docente_nombre):
+    docente = Docente.objects.get(nombre = docente_nombre)
+
+    if request.method == "POST":
+        mi_formulario = FormDocente(request.POST)
+
+        if (mi_formulario.is_valid()):
+            data = mi_formulario.cleaned_data
+            
+            docente.nombre = data["nombre"], 
+            docente.apellido = data["apellido"], 
+            docente.dni = data["dni"],
+            docente.telefono_contacto = data["telefono_contacto"]
+                               
+            docente.save()
+            return render(request, "AppCoder/Inicio.html")
+            
+    else:
+        mi_formulario = FormDocente(initial={"nombre": docente.nombre, 
+                                            "apellido": docente.apellido, 
+                                            "dni": docente.dni, 
+                                            "telefono_contacto": docente.telefono_contacto})
+
+    return render(request, "AppCoder/EditarDocente.html", {"form": mi_formulario, "docente_nombre": docente_nombre})
 
 def busqueda_alumno(request):
     return render(request, "AppCoder/BusquedaAlumno.html")
@@ -168,3 +232,31 @@ def buscar_docente(request):
         else:
             respuesta = "No enviaste datos"
         return HttpResponse(respuesta)
+
+
+#####################################################################################
+
+class CursoList(ListView):
+    model= Curso
+    template_name= "AppCoder/Curso_list.html"
+
+class CursoDetail(DetailView):
+    model= Curso
+    template_name= "AppCoder/Curso_detalle.html"
+
+class CursoUpdate(UpdateView):
+    model= Curso
+    success_url= "/AppCoder/listaCursos"
+    fields= ["grado", "division"]
+    template_name= "AppCoder/Curso_form.html"
+
+class CursoDelete(DeleteView):
+    model= Curso
+    success_url= "/AppCoder/listaCursos"
+    template_name= "AppCoder/Curso_confirm_delete.html"
+
+class CursoCreate(CreateView):
+    model= Curso
+    success_url= "/AppCoder/listaCursos"
+    fields= ["grado", "division"]
+    template_name= "AppCoder/Cursos1.html"

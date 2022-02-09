@@ -12,7 +12,12 @@
     {% for directivo in lista %}
         <li>
             {{directivo.nombre}} {{directivo.apellido}} - 
-            DNI: {{directivo.dni}}</li>
+            DNI: {{directivo.dni}}
+        </li>
+        <button>
+            <a href="{% url 'eliminaDirectivo' directivo.id %}"> Eliminar</a>
+        </button>
+
     {% endfor %}
 
 </ul>
