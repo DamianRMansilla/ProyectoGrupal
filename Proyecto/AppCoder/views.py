@@ -1,9 +1,14 @@
-from http.client import HTTPResponse
 from django.http import HttpResponse
 from django.shortcuts import render
+
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView, CreateView, DeleteView
+
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from AppCoder.models import Curso, Alumno, Docente, Directivo
 from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno
@@ -23,6 +28,7 @@ def cursos(request):
     lista_cursos = Curso.objects.all()
     return render(request, "AppCoder/Cursos.html", {"lista": lista_cursos})
 
+@login_required
 def directivos(request):
     lista_directivos = Directivo.objects.all()
     return render(request, "AppCoder/Directivos.html", {"lista": lista_directivos})
@@ -236,7 +242,7 @@ def buscar_docente(request):
 
 #####################################################################################
 
-class CursoList(ListView):
+class CursoList(LoginRequiredMixin ,ListView):
     model= Curso
     template_name= "AppCoder/Curso_list.html"
 
@@ -260,3 +266,47 @@ class CursoCreate(CreateView):
     success_url= "/AppCoder/listaCursos"
     fields= ["grado", "division"]
     template_name= "AppCoder/Cursos1.html"
+
+
+##########################################################################################
+
+def Login(request):
+    if (request.method == "POST"):
+        form = AuthenticationForm(request, data=request.POST)
+
+        if form.is_valid():
+            data = form.cleaned_data
+            user = authenticate(username=data["username"], password=data["password"])
+
+            if user is not None:
+                login(request, user)
+
+                return render(request, "AppCoder/Inicio.html", {"mensaje": f'Bienvenido {user.get_username()}'})
+
+            else:
+                return render(request, "AppCoder/Inicio.html", {"mensaje": "Error, datos incorrectos"})
+
+        else:
+            return render(request, "AppCoder/Inicio.html", {"mensaje": "Error, formulario errorneo"})
+
+    else:
+        form  = AuthenticationForm()
+
+        return render(request, "AppCoder/Login.html", {"form": form})
+
+def Register(request):
+    if (request.method == "POST"):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+
+            username = form.cleaned_data["username"]
+            form.save()
+            return render(request, "AppCoder/Inicio.html", {"mensaje": "Usuario creado exitosamente"})
+
+        else:
+            return render(request, "AppCoder/Inicio.html", {"mensaje": "Informacion de registro incorrecta"})
+        
+    else:
+        form = UserCreationForm()
+
+        return render(request, "AppCoder/Registro.html", {"form": form})
