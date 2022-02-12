@@ -10,11 +10,15 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-from AppCoder.models import Curso, Alumno, Docente, Directivo
+from AppCoder.models import Avatar, Curso, Alumno, Docente, Directivo
 from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno, UserEditForm
 
+
 def inicio(request):
-    return render(request, "AppCoder/Inicio.html")
+
+    
+
+    return render(request, "AppCoder/Inicio.html", )
 
 def alumnos(request):
     lista_alumnos = Alumno.objects.all()
@@ -281,7 +285,9 @@ def Login(request):
             if user is not None:
                 login(request, user)
 
-                return render(request, "AppCoder/Inicio.html", {"mensaje": f'Bienvenido {user.get_username()}'})
+                avatar = Avatar.objects.filter(user=request.user.id)
+
+                return render(request, "AppCoder/Inicio.html", {'url': avatar[0].imagen.url} )
 
             else:
                 return render(request, "AppCoder/Inicio.html", {"mensaje": "Error, datos incorrectos"})
@@ -336,3 +342,5 @@ def editarPerfil(request):
         mi_formulario = UserEditForm(initial={"email": usuario.email})
 
         return render(request, "AppCoder/EditarPerfil.html", {"form": mi_formulario, "usuario": usuario} )
+
+
