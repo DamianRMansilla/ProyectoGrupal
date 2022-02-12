@@ -35,3 +35,4 @@ class Directivo(models.Model):
     
     def __str__(self):
         return f'Nombre: {self.nombre} - Apellido: {self.apellido} - DNI: {self.dni}'
+
