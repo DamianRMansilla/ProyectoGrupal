@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 from AppCoder.models import Curso, Alumno, Docente, Directivo
-from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno
+from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno, UserEditForm
 
 def inicio(request):
     return render(request, "AppCoder/Inicio.html")
@@ -159,9 +159,9 @@ def editar_docente(request, docente_nombre):
         if (mi_formulario.is_valid()):
             data = mi_formulario.cleaned_data
             
-            docente.nombre = data["nombre"], 
-            docente.apellido = data["apellido"], 
-            docente.dni = data["dni"],
+            docente.nombre = data["nombre"]
+            docente.apellido = data["apellido"]
+            docente.dni = data["dni"]
             docente.telefono_contacto = data["telefono_contacto"]
                                
             docente.save()
@@ -310,3 +310,29 @@ def Register(request):
         form = UserCreationForm()
 
         return render(request, "AppCoder/Registro.html", {"form": form})
+
+def editarPerfil(request):
+    
+    usuario = request.user
+
+    if request.method == "POST":
+        mi_formulario = UserEditForm(request.POST)
+
+        if (mi_formulario.is_valid()):
+
+            data = mi_formulario.cleaned_data
+            
+            usuario.first_name = data['first_name']            
+            usuario.last_name = data['last_name']
+            usuario.email = data["email"]
+            usuario.password1 = data["password1"]
+            usuario.password2 = data["password2"]
+
+            usuario.save()
+        
+            return render(request, "AppCoder/Inicio.html")
+            
+    else:
+        mi_formulario = UserEditForm(initial={"email": usuario.email})
+
+        return render(request, "AppCoder/EditarPerfil.html", {"form": mi_formulario, "usuario": usuario} )
