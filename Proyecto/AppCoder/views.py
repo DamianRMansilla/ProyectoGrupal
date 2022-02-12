@@ -16,6 +16,9 @@ from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno
 def inicio(request):
     return render(request, "AppCoder/Inicio.html")
 
+def about(request):
+    return render(request, "AppCoder/About.html")
+
 def alumnos(request):
     lista_alumnos = Alumno.objects.all()
     return render(request, "AppCoder/Alumnos.html", {"lista": lista_alumnos})
