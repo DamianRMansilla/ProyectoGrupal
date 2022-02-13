@@ -10,8 +10,10 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import User
+
 from AppCoder.models import Avatar, Curso, Alumno, Docente, Directivo
-from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno, UserEditForm
+from AppCoder.forms import AvatarForm, FormDocente, FormDirectivo, FormCurso, FormAlumno, UserEditForm
 
 
 def inicio(request):
@@ -345,5 +347,28 @@ def editarPerfil(request):
         mi_formulario = UserEditForm(initial={"email": usuario.email})
 
         return render(request, "AppCoder/EditarPerfil.html", {"form": mi_formulario, "usuario": usuario} )
+
+@login_required
+def agregarAvatar(request):
+
+    if request.method == "POST":
+
+        mi_formulario = AvatarForm(request.POST, request.FILES)
+
+        if (mi_formulario.is_valid()):
+
+            user = User.objects.get(username=request.user)
+
+            avatar = Avatar(user=user, imagen=mi_formulario.cleaned_data['imagen'])
+            avatar.save()
+
+            return render(request, "AppCoder/Inicio.html")
+            
+    else:
+
+        mi_formulario = AvatarForm()
+
+        return render(request, "AppCoder/AgregarAvatar.html", {"form": mi_formulario} )
+
 
 
