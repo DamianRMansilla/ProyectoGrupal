@@ -6,13 +6,21 @@
 {% block contenidoQueCambia %}
 
 
+{% if not request.user.is_authenticated %}
+<div class='text-center'>
+    <h3>Bienvenido</h3>
+</div>
+{% endif %}
 
-    <div class='text-center'>
-        <img height= '150px' src='{{url}}'>
-        <h3>Que bueno verte {{user.username}} </h3>
 
-    </div>
+{% if request.user.is_authenticated %}
+    
+<div class='text-center'>
+    <img height= '150px' src='{{url}}'>
+    <h3>Que bueno verte {{user.username}} </h3>
+</div>
 
+{% endif %}
     
 
 {% endblock contenidoQueCambia %}

@@ -9,6 +9,7 @@ urlpatterns = [
     path("cursos/", views.cursos, name="cursos"),
     path("docentes/", views.docentes, name="docentes"),
     path('directivos/', views.directivos, name="directivos"),
+    path('about/', views.about, name="about"),
     
     path("creaCurso/", views.crea_curso),
     path("creaAlumno/", views.crea_alumno),
@@ -43,6 +44,6 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(template_name="AppCoder/Logout.html"), name="logout"),
 
     path("editarPerfil/", views.editarPerfil, name="editarPerfil"),
-    
+    path("agregarAvatar/", views.agregarAvatar, name="agregarAvatar"),  
 
 ]   
