@@ -291,7 +291,7 @@ def Login(request):
                 login(request, user)
 
                 avatar = Avatar.objects.filter(user=request.user.id)
-
+                print(avatar)
                 return render(request, "AppCoder/Inicio.html", {'url': avatar[0].imagen.url} )
 
             else:
