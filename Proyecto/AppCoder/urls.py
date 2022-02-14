@@ -5,16 +5,7 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path("", views.inicio, name="inicio"),
-    path("alumnos/", views.alumnos, name="alumnos"),
-    path("cursos/", views.cursos, name="cursos"),
-    path("docentes/", views.docentes, name="docentes"),
-    path('directivos/', views.directivos, name="directivos"),
     path('about/', views.about, name="about"),
-    
-    path("creaCurso/", views.crea_curso),
-    path("creaAlumno/", views.crea_alumno),
-    path("creaDirectivo/", views.crea_directivo),
-    path("creaDocente/", views.crea_docente),
 
     path("buscarAlumno/", views.buscar_alumno, name="buscarAlumno"),
     path("buscarCurso/", views.buscar_curso, name="buscarCurso"),
@@ -26,18 +17,33 @@ urlpatterns = [
     path("busquedaDirectivo/", views.busqueda_directivo, name="busquedaDirectivo"),
     path("busquedaDocente/", views.busqueda_docente, name="busquedaDocente"),
 
-    path("eliminarDocente/<id_docente>/", views.elimina_docente, name="eliminaDocente"),
     path("eliminarAlumno/<id_alumno>/", views.elimina_alumno, name="eliminaAlumno"),
-    path("eliminarDirectivo/<id_directivo>/", views.elimina_directivo, name="eliminaDirectivo"),
-    path("eliminarCurso/<id_curso>/", views.elimina_curso, name="eliminaCurso"),
+    path("alumnos/", views.alumnos, name="alumnos"),
+    # path("creaAlumno/", views.crea_alumno),
 
-    path("editarDocente/<docente_nombre>/", views.editar_docente, name="editarDocente"),
+    path("listaAlumno/", views.AlumnoList.as_view(), name="VistaAlumno"),
+    path("detalleAlumno/<pk>/", views.AlumnoDetail.as_view(), name="DetailAlumno"),
+    path("actualizaAlumno/<pk>/", views.AlumnoUpdate.as_view(), name="EditAlumno"),
+    path("eliminaAlumno/<pk>/", views.AlumnoDelete.as_view(), name="DeleteAlumno"),
+    path("crearAlumno/", views.AlumnoCreate.as_view(), name="NewAlumno"),
 
-    path("listaCursos/", views.CursoList.as_view(), name="VistaCursos"),
-    path("detalleCursos/<pk>/", views.CursoDetail.as_view(), name="Detail"),
-    path("actualizaCursos/<pk>/", views.CursoUpdate.as_view(), name="Edit"),
-    path("eliminaCursos/<pk>/", views.CursoDelete.as_view(), name="Delete"),
-    path("crearCursos/", views.CursoCreate.as_view(), name="New"),
+    path("listaDocente/", views.DocenteList.as_view(), name="VistaDocente"),
+    path("detalleDocente/<pk>/", views.DocenteDetail.as_view(), name="DetailDocente"),
+    path("actualizaDocente/<pk>/", views.DocenteUpdate.as_view(), name="EditDocente"),
+    path("eliminaDocente/<pk>/", views.DocenteDelete.as_view(), name="DeleteDocente"),
+    path("crearDocente/", views.DocenteCreate.as_view(), name="NewDocente"),
+
+    path("listaCurso/", views.CursoList.as_view(), name="VistaCurso"),
+    path("detalleCurso/<pk>/", views.CursoDetail.as_view(), name="DetailCurso"),
+    path("actualizaCurso/<pk>/", views.CursoUpdate.as_view(), name="EditCurso"),
+    path("eliminaCurso/<pk>/", views.CursoDelete.as_view(), name="DeleteCurso"),
+    path("crearCurso/", views.CursoCreate.as_view(), name="NewCurso"),
+
+    path("listaDirectivo/", views.DirectivoList.as_view(), name="VistaDirectivo"),
+    path("detalleDirectivo/<pk>/", views.DirectivoDetail.as_view(), name="DetailDirectivo"),
+    path("actualizaDirectivo/<pk>/", views.DirectivoUpdate.as_view(), name="EditDirectivo"),
+    path("eliminaDirectivo/<pk>/", views.DirectivoDelete.as_view(), name="DeleteDirectivo"),
+    path("crearDirectivo/", views.DirectivoCreate.as_view(), name="NewDirectivo"),
 
     path("login/", views.Login, name="login"),
     path("register/", views.Register, name="register"),

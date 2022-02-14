@@ -4,20 +4,14 @@
 
 
 {% block contenidoQueCambia %}
-<p>Listado de Alumnos</p>
+<h3>Listado de Alumnos</h3>
 
 <ul> 
 
     {% for alumno in lista %}
         <li>
-        {{alumno.nombre}} {{alumno.apellido}} - 
-        DNI: {{alumno.dni}} -
-        Fecha de nacimiento: {{alumno.año_nacimiento}} - 
-        Teléfono de Contacto:{{alumno.telefono_contacto}}
+        {{alumno.nombre}} {{alumno.apellido}}
         </li>
-        <button>
-            <a href="{% url 'eliminaAlumno' alumno.id %}"> Eliminar</a>
-        </button>
     {% endfor %}
 
 </ul>

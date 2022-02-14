@@ -4,10 +4,17 @@
 
 
 {% block contenidoQueCambia %}
+<br>
 
 <form method="post">{% csrf_token %}
-    ¿Esta seguro de borrar el {{ object }} ?
+    <h4>¿Esta seguro de borrar el {{ object }} ?</h4>
+    <br>
     <input type="submit" value="Confirmar" />
+</p>
+<a style="text-decoration:none" href="{% url 'VistaCurso' %}" class="bt bi-backspace btn-lg"> Regresar </a> 
+</p>
+
+
 </form>
 
 {% endblock contenidoQueCambia %}

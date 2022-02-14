@@ -18,50 +18,131 @@ from AppCoder.forms import AvatarForm, FormDocente, FormDirectivo, FormCurso, Fo
 
 def inicio(request):
 
-    
-
     return render(request, "AppCoder/Inicio.html", )
 
 def about(request):
     return render(request, "AppCoder/About.html")
 
+#########################################################################################
+
 def alumnos(request):
     lista_alumnos = Alumno.objects.all()
     return render(request, "AppCoder/Alumnos.html", {"lista": lista_alumnos})
+
+class AlumnoList(LoginRequiredMixin ,ListView):
+    model= Alumno
+    template_name= "AppCoder/AlumnoList.html"
+
+class AlumnoDetail(DetailView):
+    model= Alumno
+    template_name= "AppCoder/AlumnoDetail.html"
+
+class AlumnoUpdate(UpdateView):
+    model= Alumno
+    success_url= "/AppCoder/listaAlumno"
+    fields= ["nombre", "apellido", "dni", "año_nacimiento", "domicilio_calle",
+    'domicilio_calleNumero', 'domicilio_cp', 'domicilio_localidad', 'provincia',
+    'telefono_contacto']
+    template_name= "AppCoder/AlumnoUpdate.html"
+
+class AlumnoDelete(DeleteView):
+    model= Alumno
+    success_url= "/AppCoder/listaAlumno"
+    template_name= "AppCoder/AlumnoConfirmDelete.html"
+
+class AlumnoCreate(CreateView):
+    model= Alumno
+    success_url= "/AppCoder/listaAlumno"
+    fields= ["nombre", "apellido", "dni", "año_nacimiento", "domicilio_calle",
+    'domicilio_calleNumero', 'domicilio_cp', 'domicilio_localidad', 'provincia',
+    'telefono_contacto']
+    template_name= "AppCoder/AlumnoNew.html"
+
  
-def docentes(request):
-    lista_docentes = Docente.objects.all()
-    return render(request, "AppCoder/Docente.html", {"lista": lista_docentes})
+#########################################################################################
+class DocenteList(LoginRequiredMixin ,ListView):
+    model= Docente
+    template_name= "AppCoder/DocenteList.html"
 
-def cursos(request):
-    lista_cursos = Curso.objects.all()
-    return render(request, "AppCoder/Cursos.html", {"lista": lista_cursos})
+class DocenteDetail(DetailView):
+    model= Docente
+    template_name= "AppCoder/DocenteDetail.html"
 
-@login_required
-def directivos(request):
-    lista_directivos = Directivo.objects.all()
-    return render(request, "AppCoder/Directivos.html", {"lista": lista_directivos})
+class DocenteUpdate(UpdateView):
+    model= Docente
+    success_url= "/AppCoder/listaDocente"
+    fields= ["nombre", "apellido", "dni", "telefono_contacto", "email"]
+    template_name= "AppCoder/DocenteUpdate.html"
 
-def crea_curso(request):
+class DocenteDelete(DeleteView):
+    model= Docente
+    success_url= "/AppCoder/listaDocente"
+    template_name= "AppCoder/DocenteConfirmDelete.html"
 
-    if (request.method == "POST"):
+class DocenteCreate(CreateView):
+    model= Docente
+    success_url= "/AppCoder/listaDocente"
+    fields= ["nombre", "apellido", "dni", "telefono_contacto", "email"]
+    template_name= "AppCoder/DocenteNew.html"
 
-        mi_formulario = FormCurso(request.POST)
 
-        if (mi_formulario.is_valid()):
+#########################################################################################
 
-            curso = Curso(grado = request.POST["grado"], division = request.POST["division"])
-            #return render(req, "AppCoder/CursoNuevo.html")
+class CursoList(LoginRequiredMixin ,ListView):
+    model= Curso
+    template_name= "AppCoder/CursoList.html"
 
-            curso.save()
+class CursoDetail(DetailView):
+    model= Curso
+    template_name= "AppCoder/CursoDetail.html"
 
-            return render(request, "AppCoder/inicio.html")
+class CursoUpdate(UpdateView):
+    model= Curso
+    success_url= "/AppCoder/listaCurso"
+    fields= ["grado", "division", "turno", "año"]
+    template_name= "AppCoder/CursoUpdate.html"
 
-    else:
+class CursoDelete(DeleteView):
+    model= Curso
+    success_url= "/AppCoder/listaCurso"
+    template_name= "AppCoder/CursoConfirmDelete.html"
 
-        mi_formulario = FormCurso()
+class CursoCreate(CreateView):
+    model= Curso
+    success_url= "/AppCoder/listaCurso"
+    fields= ["grado", "division", "turno", "año"]
+    template_name= "AppCoder/CursoNew.html"
 
-    return render(request, "AppCoder/CursoNuevo.html", {"form": mi_formulario})
+
+#########################################################################################    
+class DirectivoList(LoginRequiredMixin ,ListView):
+    model= Directivo
+    template_name= "AppCoder/DirectivoList.html"
+
+class DirectivoDetail(DetailView):
+    model= Directivo
+    template_name= "AppCoder/DirectivoDetail.html"
+
+class DirectivoUpdate(UpdateView):
+    model= Directivo
+    success_url= "/AppCoder/listaDirectivo"
+    fields= ["nombre", "apellido", "dni", "telefono_contacto"]
+    template_name= "AppCoder/DirectivoUpdate.html"
+
+class DirectivoDelete(DeleteView):
+    model= Directivo
+    success_url= "/AppCoder/listaDirectivo"
+    template_name= "AppCoder/DirectivoConfirmDelete.html"
+
+class DirectivoCreate(CreateView):
+    model= Directivo
+    success_url= "/AppCoder/listaDirectivo"
+    fields= ["nombre", "apellido", "dni", "telefono_contacto"]
+    template_name= "AppCoder/DirectivoNew.html"
+
+
+#########################################################################################
+
 
 def elimina_curso(request, id_curso):
     curso = Curso.objects.get(id=id_curso)
@@ -248,33 +329,6 @@ def buscar_docente(request):
             respuesta = "No enviaste datos"
         return HttpResponse(respuesta)
 
-
-#####################################################################################
-
-class CursoList(LoginRequiredMixin ,ListView):
-    model= Curso
-    template_name= "AppCoder/Curso_list.html"
-
-class CursoDetail(DetailView):
-    model= Curso
-    template_name= "AppCoder/Curso_detalle.html"
-
-class CursoUpdate(UpdateView):
-    model= Curso
-    success_url= "/AppCoder/listaCursos"
-    fields= ["grado", "division"]
-    template_name= "AppCoder/Curso_form.html"
-
-class CursoDelete(DeleteView):
-    model= Curso
-    success_url= "/AppCoder/listaCursos"
-    template_name= "AppCoder/Curso_confirm_delete.html"
-
-class CursoCreate(CreateView):
-    model= Curso
-    success_url= "/AppCoder/listaCursos"
-    fields= ["grado", "division"]
-    template_name= "AppCoder/Cursos1.html"
 
 
 ##########################################################################################
