@@ -13,6 +13,11 @@ class FormAlumno(forms.Form):
     apellido = forms.CharField()
     dni = forms.IntegerField()
     año_nacimiento = forms.DateField()
+    domicilio_calle = forms.CharField()
+    domicilio_calleNumero = forms.IntegerField()
+    domicilio_cp = forms.IntegerField()
+    domicilio_localidad = forms.CharField()
+    provincia = forms.CharField()
     telefono_contacto = forms.IntegerField()
 
 class FormDocente(forms.Form):
@@ -25,11 +30,7 @@ class FormDirectivo(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
     dni = forms.IntegerField()
-    
-class FormDirectivo(forms.Form):
-    nombre = forms.CharField()
-    apellido = forms.CharField()
-    dni = forms.IntegerField()
+    telefono_contacto = forms.IntegerField()
 
 
 

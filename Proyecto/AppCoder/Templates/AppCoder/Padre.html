@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Landing Page - Start Bootstrap Theme</title>
+        <title>App Coder</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{% static '/assets/favicon.ico' %}" />
         <!-- Bootstrap icons-->
@@ -22,10 +22,10 @@
             <div class="container">
                 <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
                 <a class="navbar-brand" href="{% url 'about' %}">Nosotros</a>
-                <a class="navbar-brand" href="{% url 'alumnos' %}">Alumnos</a>
-                <a class="navbar-brand" href="{% url 'docentes' %}">Docentes</a>
-                <a class="navbar-brand" href="{% url 'cursos' %}">Cursos</a>
-                <a class="navbar-brand" href="{% url 'directivos' %}">Directivos</a>
+                <a class="navbar-brand" href="{% url 'VistaAlumno' %}">Alumnos</a>
+                <a class="navbar-brand" href="{% url 'VistaDocente' %}">Docentes</a>
+                <a class="navbar-brand" href="{% url 'VistaCurso' %}">Cursos</a>
+                <a class="navbar-brand" href="{% url 'VistaDirectivo' %}">Directivos</a>
                 
                 {% if not request.user.is_authenticated %}
                 <a class="btn btn-primary" href="{% url 'login' %}">Sign Up</a>
