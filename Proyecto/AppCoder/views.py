@@ -346,7 +346,10 @@ def Login(request):
 
                 avatar = Avatar.objects.filter(user=request.user.id)
                 print(avatar)
-                return render(request, "AppCoder/Inicio.html", {'url': avatar[0].imagen.url} )
+                if (len(avatar) > 0):
+                    return render(request, "AppCoder/Inicio.html", {'url': avatar[0].imagen.url} )
+                else:
+                    return render(request, "AppCoder/Inicio.html")
 
             else:
                 return render(request, "AppCoder/Inicio.html", {"mensaje": "Error, datos incorrectos"})
