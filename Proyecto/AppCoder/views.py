@@ -345,7 +345,6 @@ def Login(request):
                 login(request, user)
 
                 avatar = Avatar.objects.filter(user=request.user.id)
-                print(avatar)
                 if (len(avatar) > 0):
                     return render(request, "AppCoder/Inicio.html", {'url': avatar[0].imagen.url} )
                 else:
@@ -408,24 +407,29 @@ def editarPerfil(request):
 @login_required
 def agregarAvatar(request):
 
-    if request.method == "POST":
-
-        mi_formulario = AvatarForm(request.POST, request.FILES)
-
-        if (mi_formulario.is_valid()):
-
-            user = User.objects.get(username=request.user)
-
-            avatar = Avatar(user=user, imagen=mi_formulario.cleaned_data['imagen'])
-            avatar.save()
-
-            return render(request, "AppCoder/Inicio.html")
+    user = str(User.objects.get(username=request.user))
+    
+    if user == "admin":
+        if request.method == "POST":
             
+            mi_formulario = AvatarForm(request.POST, request.FILES)
+
+            if (mi_formulario.is_valid()):
+
+                user = User.objects.get(username=request.user)
+
+                avatar = Avatar(user=user, imagen=mi_formulario.cleaned_data['imagen'])
+                avatar.save()
+
+                return render(request, "AppCoder/Inicio.html")
+                
+        else:
+            #print(request.user)
+            mi_formulario = AvatarForm()
+
+            return render(request, "AppCoder/AgregarAvatar.html", {"form": mi_formulario} )
     else:
-
-        mi_formulario = AvatarForm()
-
-        return render(request, "AppCoder/AgregarAvatar.html", {"form": mi_formulario} )
+        return render(request, "AppCoder/Inicio.html")
 
 
 
