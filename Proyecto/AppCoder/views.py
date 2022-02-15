@@ -45,9 +45,7 @@ class AlumnoDetail(DetailView):
 class AlumnoUpdate(UpdateView):
     model= Alumno
     success_url= "/AppCoder/listaAlumno"
-    fields= ["nombre", "apellido", "dni", "año_nacimiento", "domicilio_calle",
-    'domicilio_calleNumero', 'domicilio_cp', 'domicilio_localidad', 'provincia',
-    'telefono_contacto']
+    fields= ["nombre", "apellido", "dni", 'telefono_contacto', "imagen"]
     template_name= "AppCoder/AlumnoUpdate.html"
 
 class AlumnoDelete(DeleteView):
@@ -74,7 +72,7 @@ class DocenteDetail(DetailView):
 class DocenteUpdate(UpdateView):
     model= Docente
     success_url= "/AppCoder/listaDocente"
-    fields= ["nombre", "apellido", "dni", "telefono_contacto", "email"]
+    fields= ["nombre", "apellido", "dni", "telefono_contacto", "email", "imagen"]
     template_name= "AppCoder/DocenteUpdate.html"
 
 class DocenteDelete(DeleteView):
@@ -102,7 +100,7 @@ class CursoDetail(DetailView):
 class CursoUpdate(UpdateView):
     model= Curso
     success_url= "/AppCoder/listaCurso"
-    fields= ["grado", "division", "turno", "año"]
+    fields= ["grado", "division", "turno", "año", "imagen"]
     template_name= "AppCoder/CursoUpdate.html"
 
 class CursoDelete(DeleteView):
@@ -129,7 +127,7 @@ class DirectivoDetail(DetailView):
 class DirectivoUpdate(UpdateView):
     model= Directivo
     success_url= "/AppCoder/listaDirectivo"
-    fields= ["nombre", "apellido", "dni", "telefono_contacto"]
+    fields= ["nombre", "apellido", "dni", "telefono_contacto", "imagen"]
     template_name= "AppCoder/DirectivoUpdate.html"
 
 class DirectivoDelete(DeleteView):

@@ -22,9 +22,9 @@
                 <img height= '150px' src='/media/{{docente.imagen}}'>
             {% endif %}
             <div>
-                <p><a href="{% url 'DetailDocente' docente.id %}">Ver</a></p>
-                <p><a href="{% url 'EditDocente' docente.id %}">Editar</a></p>
-                <p><a href="{% url 'DeleteDocente' docente.id %}">Borrar</a></p>
+                <a href="{% url 'DetailDocente' docente.id %}">Ver</a>
+                <a href="{% url 'EditDocente' docente.id %}">Editar</a>
+                <a href="{% url 'DeleteDocente' docente.id %}">Borrar</a>
             </div>
         </li>
 

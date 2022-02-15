@@ -17,9 +17,9 @@
         <li>
             <p>Curso {{curso.grado}}{{curso.division}} - Turno {{curso.turno}} - Año {{curso.año}} </p>
             <div>
-                <p><a href="{% url 'DetailCurso' curso.id %}">Ver</a></p>
-                <p><a href="{% url 'EditCurso' curso.id %}">Editar</a></p>
-                <p><a href="{% url 'DeleteCurso' curso.id %}">Borrar</a></p>
+                <a href="{% url 'DetailCurso' curso.id %}">Ver</a>
+                <a href="{% url 'EditCurso' curso.id %}">Editar</a>
+                <a href="{% url 'DeleteCurso' curso.id %}">Borrar</a>
                 <div class='text-center'>
                     {% if curso.imagen %}
                         <img height= '150px' src='/media/{{curso.imagen}}'>

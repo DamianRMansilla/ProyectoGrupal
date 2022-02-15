@@ -22,9 +22,9 @@
                 <img height= '150px' src='/media/{{directivo.imagen}}'>
             {% endif %}
             <div>
-                <p><a href="{% url 'DetailDirectivo' directivo.id %}">Ver</a></p>
-                <p><a href="{% url 'EditDirectivo' directivo.id %}">Editar</a></p>
-                <p><a href="{% url 'DeleteDirectivo' directivo.id %}">Borrar</a></p>
+                <a href="{% url 'DetailDirectivo' directivo.id %}">Ver</a>
+                <a href="{% url 'EditDirectivo' directivo.id %}">Editar</a>
+                <a href="{% url 'DeleteDirectivo' directivo.id %}">Borrar</a>
                 
             </div>
         </li>
