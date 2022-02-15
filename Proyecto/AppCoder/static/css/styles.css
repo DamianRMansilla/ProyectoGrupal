@@ -11382,5 +11382,12 @@ footer.footer {
 
 a.link{
   text-decoration: none;
-  color: yellow;
+  color: white;
+}
+
+button.botoncreacion{
+  border: solid 1px black;
+  margin-left: 5%;
+  background-color: black;
+  border-radius: 5px;
 }

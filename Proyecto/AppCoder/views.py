@@ -1,5 +1,7 @@
+from django import db
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.db import models
 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -22,6 +24,9 @@ def inicio(request):
 
 def about(request):
     return render(request, "AppCoder/About.html")
+
+def paginas(request):
+    return render(request, "AppCoder/Paginas.html")
 
 #########################################################################################
 
@@ -53,11 +58,9 @@ class AlumnoDelete(DeleteView):
 class AlumnoCreate(CreateView):
     model= Alumno
     success_url= "/AppCoder/listaAlumno"
-    fields= ["nombre", "apellido", "dni", "año_nacimiento", "domicilio_calle",
-    'domicilio_calleNumero', 'domicilio_cp', 'domicilio_localidad', 'provincia',
-    'telefono_contacto']
+    fields= ["nombre", "apellido", "dni",'telefono_contacto', "imagen"]
     template_name= "AppCoder/AlumnoNew.html"
-
+    #"año_nacimiento", "domicilio_calle",'domicilio_calleNumero', 'domicilio_cp', 'domicilio_localidad', 'provincia',
  
 #########################################################################################
 class DocenteList(LoginRequiredMixin ,ListView):
@@ -82,7 +85,7 @@ class DocenteDelete(DeleteView):
 class DocenteCreate(CreateView):
     model= Docente
     success_url= "/AppCoder/listaDocente"
-    fields= ["nombre", "apellido", "dni", "telefono_contacto", "email"]
+    fields= ["nombre", "apellido", "dni", "telefono_contacto", "email", "imagen"]
     template_name= "AppCoder/DocenteNew.html"
 
 
@@ -110,7 +113,7 @@ class CursoDelete(DeleteView):
 class CursoCreate(CreateView):
     model= Curso
     success_url= "/AppCoder/listaCurso"
-    fields= ["grado", "division", "turno", "año"]
+    fields= ["grado", "division", "turno", "año", "imagen"]
     template_name= "AppCoder/CursoNew.html"
 
 
@@ -137,7 +140,7 @@ class DirectivoDelete(DeleteView):
 class DirectivoCreate(CreateView):
     model= Directivo
     success_url= "/AppCoder/listaDirectivo"
-    fields= ["nombre", "apellido", "dni", "telefono_contacto"]
+    fields= ["nombre", "apellido", "dni", "telefono_contacto", "imagen"]
     template_name= "AppCoder/DirectivoNew.html"
 
 
@@ -424,12 +427,9 @@ def agregarAvatar(request):
                 return render(request, "AppCoder/Inicio.html")
                 
         else:
-            #print(request.user)
             mi_formulario = AvatarForm()
 
             return render(request, "AppCoder/AgregarAvatar.html", {"form": mi_formulario} )
     else:
         return render(request, "AppCoder/Inicio.html")
-
-
 

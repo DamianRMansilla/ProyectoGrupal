@@ -5,9 +5,10 @@
 
 {% block contenidoQueCambia %}
 <br>
-<button><a href="{% url 'NewCurso' %}">Agregar nuevo Curso</a></button><br>    
 <h1>Listado de cursos</h1>
+<h3>Cursos del ciclo lectivo 2022</h3>
 <br>
+<button class="botoncreacion"><a class="link" href="{% url 'NewCurso' %}">Agregar nuevo Curso</a></button><br>    
 
 <ul>
     
@@ -15,12 +16,17 @@
         
         <li>
             <p>Curso {{curso.grado}}{{curso.division}} - Turno {{curso.turno}} - Año {{curso.año}} </p>
-            <p>
-                <a href="{% url 'DetailCurso' curso.id %}">Ver</a>
-                <a href="{% url 'EditCurso' curso.id %}">Editar</a>
-                <a href="{% url 'DeleteCurso' curso.id %}">Borrar</a>
+            <div>
+                <p><a href="{% url 'DetailCurso' curso.id %}">Ver</a></p>
+                <p><a href="{% url 'EditCurso' curso.id %}">Editar</a></p>
+                <p><a href="{% url 'DeleteCurso' curso.id %}">Borrar</a></p>
+                <div class='text-center'>
+                    {% if curso.imagen %}
+                        <img height= '150px' src='/media/{{curso.imagen}}'>
+                    {% endif %}
+                </div>
                 
-            </p>
+            </div>
         </li>
 
     {% endfor %}
@@ -28,5 +34,7 @@
 </ul>
 
 
+<p>Autor: admin</p>
+<p>Fecha: 15/02/2022</p>
 
 {% endblock contenidoQueCambia %}

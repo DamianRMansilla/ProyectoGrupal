@@ -6,7 +6,7 @@
 {% block contenidoQueCambia %}
 <br>
 
-    <button><a href="{% url 'NewDirectivo' %}">Agregar nuevo Directivo</a></button><br>    
+    <button class="botoncreacion"><a class="link" href="{% url 'NewDirectivo' %}">Agregar nuevo Directivo</a></button><br>    
 
 
 <h1>Listado de directivos</h1>
@@ -18,12 +18,15 @@
         
         <li>
             <p>Directivo {{directivo.nombre}} {{directivo.apellido}} </p>
-            <p>
-                <a href="{% url 'DetailDirectivo' directivo.id %}">Ver</a>
-                <a href="{% url 'EditDirectivo' directivo.id %}">Editar</a>
-                <a href="{% url 'DeleteDirectivo' directivo.id %}">Borrar</a>
+            {% if directivo.imagen %}
+                <img height= '150px' src='/media/{{directivo.imagen}}'>
+            {% endif %}
+            <div>
+                <p><a href="{% url 'DetailDirectivo' directivo.id %}">Ver</a></p>
+                <p><a href="{% url 'EditDirectivo' directivo.id %}">Editar</a></p>
+                <p><a href="{% url 'DeleteDirectivo' directivo.id %}">Borrar</a></p>
                 
-            </p>
+            </div>
         </li>
 
     {% endfor %}

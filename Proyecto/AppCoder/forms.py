@@ -7,32 +7,38 @@ from AppCoder.models import Avatar
 class FormCurso(forms.Form):
     grado = forms.IntegerField()
     division = forms.CharField()
+    turno = forms.CharField()
+    año = forms.IntegerField()
+    imagen = forms.ImageField()
 
 class FormAlumno(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
     dni = forms.IntegerField()
-    año_nacimiento = forms.DateField()
-    domicilio_calle = forms.CharField()
-    domicilio_calleNumero = forms.IntegerField()
-    domicilio_cp = forms.IntegerField()
-    domicilio_localidad = forms.CharField()
-    provincia = forms.CharField()
+    # año_nacimiento = forms.DateField()
+    # domicilio_calle = forms.CharField()
+    # domicilio_calleNumero = forms.IntegerField()
+    # domicilio_cp = forms.IntegerField()
+    # domicilio_localidad = forms.CharField()
+    # provincia = forms.CharField()
     telefono_contacto = forms.IntegerField()
+    imagen = forms.ImageField()
+
 
 class FormDocente(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
     dni = forms.IntegerField()
-    telefono_contacto = forms.IntegerField()   
+    telefono_contacto = forms.IntegerField()
+    imagen = forms.ImageField()
+   
      
 class FormDirectivo(forms.Form):
     nombre = forms.CharField()
     apellido = forms.CharField()
     dni = forms.IntegerField()
     telefono_contacto = forms.IntegerField()
-
-
+    imagen = forms.ImageField()
 
 
 
