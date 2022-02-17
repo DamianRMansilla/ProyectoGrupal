@@ -1,12 +1,27 @@
 from django.urls import path
 from AppCoder import views
-from django.contrib.auth.views import LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
     path("", views.inicio, name="inicio"),
     path('about/', views.about, name="about"),
     path("pages/", views.paginas, name="paginas"),
+    
+    path("profile/", views.profile, name="profile"),
+    
+
+    path("register/", views.register, name="register"),
+    path('login/', auth_views.LoginView.as_view(template_name='AppCoder/Login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='AppCoder/Logout.html'), name='logout'),
+
+
+    path("editarPerfil/", views.editarPerfil, name="editarPerfil"),
+    path("agregarAvatar/", views.agregarAvatar, name="agregarAvatar"),  
 
     path("buscarAlumno/", views.buscar_alumno, name="buscarAlumno"),
     path("buscarCurso/", views.buscar_curso, name="buscarCurso"),
@@ -46,11 +61,5 @@ urlpatterns = [
     path("eliminaDirectivo/<pk>/", views.DirectivoDelete.as_view(), name="DeleteDirectivo"),
     path("crearDirectivo/", views.DirectivoCreate.as_view(), name="NewDirectivo"),
 
-    path("login/", views.Login, name="login"),
-    path("register/", views.Register, name="register"),
-    path("logout/", LogoutView.as_view(template_name="AppCoder/Logout.html"), name="logout"),
-
-    path("editarPerfil/", views.editarPerfil, name="editarPerfil"),
-    path("agregarAvatar/", views.agregarAvatar, name="agregarAvatar"),  
-
+    
 ]   

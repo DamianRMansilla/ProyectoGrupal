@@ -5,7 +5,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
-        <meta name="author" content="" />
+        <meta name="author" content="" /> -->
         <title>App Coder</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{% static '/assets/favicon.ico' %}" />
@@ -35,7 +35,7 @@
                 {% endif %}
                 
                 {% if request.user.is_authenticated %}
-                <p class="text-muted small mb-4 mb-lg-0">Hola, {{user.username}} </p>
+                <p class="text-muted small mb-4 mb-lg-0"><a href="{% url 'profile' %}"> {{user.username}} Profile </a></p>
                 <a class="btn btn-primary" href="{% url 'logout' %}">Log Out</a>   
                 {% endif %}
                         
@@ -98,7 +98,23 @@
                 </div>
             </div>
         </header>
-        
+        <br>
+        <main role="main" class="container">
+            <div class="row">
+              <div class="col-md-8">
+                {% if messages %}
+                  {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock %}
+              </div>
+            </div>
+        </main>
+      
+
         {% block contenidoQueCambia %}
 
 

@@ -1,6 +1,6 @@
 from django import db
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db import models
 
 from django.views.generic import ListView
@@ -14,12 +14,50 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
 
-from AppCoder.models import Avatar, Curso, Alumno, Docente, Directivo
-from AppCoder.forms import AvatarForm, FormDocente, FormDirectivo, FormCurso, FormAlumno, UserEditForm
+from AppCoder.models import Curso, Alumno, Docente, Directivo
+from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno, UserRegisterForm, ProfileUpdateForm, UserUpdateForm
+from django.contrib import messages
+
+
+def  register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Your account has been created! You are now able to log in')
+            return redirect('login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'AppCoder/Registro.html', {'form': form})
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'AppCoder/Profile.html', context)
+    
 
 
 def inicio(request):
-
     return render(request, "AppCoder/Inicio.html", )
 
 def about(request):
@@ -333,51 +371,6 @@ def buscar_docente(request):
 
 
 ##########################################################################################
-
-def Login(request):
-    if (request.method == "POST"):
-        form = AuthenticationForm(request, data=request.POST)
-
-        if form.is_valid():
-            data = form.cleaned_data
-            user = authenticate(username=data["username"], password=data["password"])
-
-            if user is not None:
-                login(request, user)
-
-                avatar = Avatar.objects.filter(user=request.user.id)
-                if (len(avatar) > 0):
-                    return render(request, "AppCoder/Inicio.html", {'url': avatar[0].imagen.url} )
-                else:
-                    return render(request, "AppCoder/Inicio.html")
-
-            else:
-                return render(request, "AppCoder/Inicio.html", {"mensaje": "Error, datos incorrectos"})
-
-        else:
-            return render(request, "AppCoder/Inicio.html", {"mensaje": "Error, formulario errorneo"})
-
-    else:
-        form  = AuthenticationForm()
-
-        return render(request, "AppCoder/Login.html", {"form": form})
-
-def Register(request):
-    if (request.method == "POST"):
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-
-            username = form.cleaned_data["username"]
-            form.save()
-            return render(request, "AppCoder/Inicio.html", {"mensaje": "Usuario creado exitosamente"})
-
-        else:
-            return render(request, "AppCoder/Inicio.html", {"mensaje": "Informacion de registro incorrecta"})
-        
-    else:
-        form = UserCreationForm()
-
-        return render(request, "AppCoder/Registro.html", {"form": form})
 
 def editarPerfil(request):
     
