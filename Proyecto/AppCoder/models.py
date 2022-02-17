@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from PIL import Image
 
 
 class Curso(models.Model):
@@ -69,7 +72,6 @@ class Docente(models.Model):
     def __str__(self):
         return f'Nombre: {self.nombre} - Apellido: {self.apellido} - DNI: {self.dni} - Imagen {self.imagen}'
 
-
 class Directivo(models.Model):
     nombre= models.CharField(max_length=30)
     apellido= models.CharField(max_length=30)
@@ -81,9 +83,34 @@ class Directivo(models.Model):
     def __str__(self):
         return f'Nombre: {self.nombre} - Apellido: {self.apellido} - DNI: {self.dni} - Imagen {self.imagen}'
 
-class Avatar(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to= 'avatares', null=True, blank=True)
+# class Avatar(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     imagen = models.ImageField(upload_to= 'avatares', null=True, blank=True)
+
+#     def __str__(self):
+#         return f'Imagen de {self.user.username} '
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    bio = models.TextField(null=True, blank=True)
+    link = models.URLField(max_length=200, null=True, blank=True)
+
+    #Averiguar para que sirve
+    # class Meta:
+    #     ordering = ['user__username']
+
 
     def __str__(self):
-        return f'Imagen de {self.user.username} '
+        return f'{self.user.username} Profile'
+    
+    def save(self):
+        super().save()
+
+        img = Image.open(self.image.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.image.path)
+
