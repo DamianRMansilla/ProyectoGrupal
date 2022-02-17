@@ -16,16 +16,17 @@
         
         <li>
             <p>Curso {{curso.grado}}{{curso.division}} - Turno {{curso.turno}} - Año {{curso.año}} </p>
+            <div class='text-center'>
+                {% if curso.imagen %}
+                    <img height= '150px' src='/media/{{curso.imagen}}'>
+                {% endif %}
+            </div>
             <div>
-                <a href="{% url 'DetailCurso' curso.id %}">Ver</a>
-                <a href="{% url 'EditCurso' curso.id %}">Editar</a>
-                <a href="{% url 'DeleteCurso' curso.id %}">Borrar</a>
-                <div class='text-center'>
-                    {% if curso.imagen %}
-                        <img height= '150px' src='/media/{{curso.imagen}}'>
-                    {% endif %}
-                </div>
-                
+                <a href="{% url 'DetailCurso' curso.id %}">Leer mas...</a>
+                {% if user.get_username == "admin" %}
+                    <a href="{% url 'EditCurso' curso.id %}">Editar</a>
+                    <a href="{% url 'DeleteCurso' curso.id %}">Borrar</a>
+                {% endif %}                                
             </div>
         </li>
 
@@ -36,5 +37,9 @@
 
 <p>Autor: admin</p>
 <p>Fecha: 15/02/2022</p>
+
+</p>
+    <a style="text-decoration:none" href="{% url 'paginas' %}" class="bt bi-backspace btn-lg"> Regresar </a> 
+</p>
 
 {% endblock contenidoQueCambia %}

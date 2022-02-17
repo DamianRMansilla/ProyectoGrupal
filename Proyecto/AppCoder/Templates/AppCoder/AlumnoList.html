@@ -18,20 +18,27 @@
     {% for alumno in object_list %}
         
         <li>
-            <p>Alumno {{alumno.nombre}} {{alumno.apellido}} </p>
+            <p>Alumno: {{alumno.nombre}} {{alumno.apellido}} </p>
             {% if alumno.imagen %}
                 <img height= '150px' src='/media/{{alumno.imagen}}'>
             {% endif %}
             <div>
-                <a href="{% url 'DetailAlumno' alumno.id %}">Ver</a>
-                <a href="{% url 'EditAlumno' alumno.id %}">Editar</a>
-                <a href="{% url 'DeleteAlumno' alumno.id %}">Borrar</a>    
+                <a href="{% url 'DetailAlumno' alumno.id %}">Leer mas...</a>
+                
+                {% if user.get_username == "admin" %}
+                    <a href="{% url 'EditAlumno' alumno.id %}">Editar</a>
+                    <a href="{% url 'DeleteAlumno' alumno.id %}">Borrar</a>    
+                {% endif %}                
             </div>
         </li>
 
     {% endfor %}
-        
+
+    
 </ul>
+</p>
+<a style="text-decoration:none" href="{% url 'paginas' %}" class="bt bi-backspace btn-lg"> Regresar </a> 
+</p>
 
 
 

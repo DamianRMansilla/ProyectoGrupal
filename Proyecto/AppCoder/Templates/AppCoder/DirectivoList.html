@@ -22,17 +22,21 @@
                 <img height= '150px' src='/media/{{directivo.imagen}}'>
             {% endif %}
             <div>
-                <a href="{% url 'DetailDirectivo' directivo.id %}">Ver</a>
-                <a href="{% url 'EditDirectivo' directivo.id %}">Editar</a>
-                <a href="{% url 'DeleteDirectivo' directivo.id %}">Borrar</a>
-                
+                <a href="{% url 'DetailDirectivo' directivo.id %}">Leer mas...</a>
+
+                {% if user.get_username == "admin" %}
+                    <a href="{% url 'EditDirectivo' directivo.id %}">Editar</a>
+                    <a href="{% url 'DeleteDirectivo' directivo.id %}">Borrar</a>
+                {% endif %}                        
             </div>
         </li>
 
     {% endfor %}
         
 </ul>
-
+</p>
+    <a style="text-decoration:none" href="{% url 'paginas' %}" class="bt bi-backspace btn-lg"> Regresar </a> 
+</p>
 
 
 {% endblock contenidoQueCambia %}

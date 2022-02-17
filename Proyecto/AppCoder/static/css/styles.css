@@ -11391,3 +11391,12 @@ button.botoncreacion{
   background-color: black;
   border-radius: 5px;
 }
+
+
+li.listadoPagina{
+  font-size: 30px;
+}
+
+ul.ulPaginas{
+  margin-top: 5vh;
+}

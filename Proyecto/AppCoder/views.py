@@ -25,8 +25,15 @@ def inicio(request):
 def about(request):
     return render(request, "AppCoder/About.html")
 
+from django.db import connection
+tables = connection.introspection.table_names()
+seen_models = connection.introspection.installed_models(tables)
+
 def paginas(request):
-    return render(request, "AppCoder/Paginas.html")
+    tables = connection.introspection.table_names()
+    print(tables)
+    #seen_models = connection.introspection.installed_models(tables)
+    return render(request, "AppCoder/Paginas.html",{ "tables": tables})
 
 #########################################################################################
 

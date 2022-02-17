@@ -22,16 +22,20 @@
                 <img height= '150px' src='/media/{{docente.imagen}}'>
             {% endif %}
             <div>
-                <a href="{% url 'DetailDocente' docente.id %}">Ver</a>
-                <a href="{% url 'EditDocente' docente.id %}">Editar</a>
-                <a href="{% url 'DeleteDocente' docente.id %}">Borrar</a>
+                <a href="{% url 'DetailDocente' docente.id %}">Leer mas...</a>
+                
+                {% if user.get_username == "admin" %}
+                    <a href="{% url 'EditDocente' docente.id %}">Editar</a>
+                    <a href="{% url 'DeleteDocente' docente.id %}">Borrar</a>
+                {% endif %}                
             </div>
         </li>
 
     {% endfor %}
         
 </ul>
-
-
+</p>
+    <a style="text-decoration:none" href="{% url 'paginas' %}" class="bt bi-backspace btn-lg"> Regresar </a> 
+</p>
 
 {% endblock contenidoQueCambia %}
