@@ -16,10 +16,10 @@
 {% if request.user.is_authenticated %}
         
     <div class='text-center'>
-        {% if url %}
-            <img height= '150px' src='{{url}}'>
-        {% endif %}
-        <h3>Que bueno verte {{user.username}} </h3>
+        
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        
+            <h3>Que bueno verte {{user.username}} </h3>
     </div>
             
 {% endif %}
