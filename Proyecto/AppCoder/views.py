@@ -14,10 +14,9 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
 
-from AppCoder.models import Curso, Alumno, Docente, Directivo
-from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno, UserRegisterForm, ProfileUpdateForm, UserUpdateForm
+from AppCoder.models import Curso, Alumno, Docente, Directivo, Avatar
+from AppCoder.forms import FormDocente, FormDirectivo, FormCurso, FormAlumno, UserRegisterForm, ProfileUpdateForm, UserUpdateForm, UserEditForm, AvatarForm
 from django.contrib import messages
-
 
 def  register(request):
     if request.method == 'POST':
